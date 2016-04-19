@@ -1,0 +1,27 @@
+/*Ch 5 Exercises
+function flattening 	= line 
+function Monther-Child
+*/
+
+function frustratedFlattening(a)
+{
+  var b = [];
+
+  //a.reduce(
+  a.forEach(function(c){
+    b = b.concat(c);
+  });
+  
+  return b;
+}
+
+function flattening(a)
+{
+ var b = [];
+
+  a.reduce(function(c, d){//reduce function takes 4 parameters
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+      b = b.concat(d);
+    }, []);//without ', []' only returns [4,5,6]
+  return b;
+}

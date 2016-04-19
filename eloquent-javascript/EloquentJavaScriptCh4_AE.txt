@@ -1,0 +1,203 @@
+CHAPTER 4 EXCERCISES
+function range					= line 15
+(improved)function range		= line 24
+function sum					= line 40
+function reverseArray			= line 64
+function reverseArrayInPlace	= line 72
+function arrayToList			= line 81
+function listToArray			= line 103
+function prepend				= line 114
+function nth					= line 125
+recursive function nth			= line 144
+function deepEqual 				= line 167
+
+//Original range function
+function range(start, end){
+  var rangeArray = [];
+  for (var i = start; i <= end; i++){
+    rangeArray.push(i);
+  }
+  return rangeArray
+}
+
+//improved range function
+function range(start, end, step){
+  var rangeArray = [];
+  var i = start;
+  
+  if (arguments[2] == undefined)
+    step = 1;
+  //below if added after reading his hints
+  if (start > end)
+    step = -1;
+	
+  for (var i = start; (step > 0 && i <= end) || (step < 0 && i >= end); i += step){
+    rangeArray.push(i);
+  }
+  return rangeArray;
+}
+
+function sum(a){
+ var total = 0;
+  var counter = 0;
+  while (counter < a.length){
+    total += a[counter++];
+  }
+  return total;
+}
+
+
+console.log(range(1, 10));
+// → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+console.log(range(1, 10, 2));
+// →  [1, 3, 5, 7, 9]
+console.log(range(5, 2, -1));
+// → [5, 4, 3, 2]
+console.log(range(10, 3, -2));
+// → [10, 8, 6, 4]
+console.log(sum(range(1, 10)));
+// → 55
+console.log(range(6,1));
+// → [6, 5, 4, 3, 2, 1]
+
+
+function reverseArray(a){
+  var b = [];
+  while (b.length <= a.length + 1){
+    b.push(a.pop());
+  }
+  return b;
+}
+
+function reverseArrayInPlace(a){
+  var halfway = a.length/2;
+  for (var i = 0; i < halfway; i++){
+    var hold = a[i];
+    a[i] = a[(a.length - 1) - i];
+    a[(a.length - 1) - i] = hold;
+  }
+}
+
+function arrayToList(a){
+  var list;
+  var current;
+
+  for (var i = a.length - 1; i >= 0; i--){
+    if (i == a.length - 1){
+      current = {
+     	value: a[i],
+        rest: null
+      }
+    }
+    else{
+      list = {
+       value : a[i],
+        rest: current
+     }
+     current = list;
+   }
+  }
+     return list;
+}
+
+function listToArray(l){
+  var array = [];
+  
+  while (l != null){
+    array.push(l.value);
+    l = l.rest;
+  }
+  
+  return array;
+}
+
+function prepend(val, l){
+  var list;
+  list = {
+    value: val,
+    rest: l
+  };
+  
+  return list;
+}
+
+//non-recursive
+function nth(list, nthElement)
+{
+  var val;
+  
+  for (var i = 0; i <= nthElement; i++){
+    if (i < nthElement){
+      if (list.rest != null)
+      	list = list.rest;
+      else
+        val = undefined;
+    }
+    else
+      val = list.value;
+  }
+  
+  return val;
+}
+
+//recursive
+function nth(list, nthElement)
+{
+  var val;
+  var nodeNum;
+  if (arguments.length > 2)
+    nodeNum = arguments[2];
+  else 
+    nodeNum = 0;
+  
+  if (nodeNum == nthElement)
+    val = list.value;
+  else {
+    if (list.rest != null){
+  		val = nth(list.rest, nthElement, ++nodeNum);
+    }
+    else 
+      val = undefined;
+  }
+  
+  return val;
+}
+
+
+function deepEqual( obj1, obj2){
+  //performs type conversion so 5 equals "5"
+ if (obj1 === obj2)
+   return true;
+  else if (typeof(obj1) == "object"  && typeof(obj2) == "object" 
+           && (obj1 != null) && (obj2 != null))
+  {
+    var obj1Properties = 0;
+    var obj2Properties = 0;
+    for ( var i in obj1)
+    {
+      	obj1Properties++;
+    }
+    for (var i in obj2)
+    {
+        obj2Properties++;
+        if (!(i in obj1))
+          return false;
+        else if (!(deepEqual(obj1[i], obj2[i])))
+            return false;
+    }
+    if (obj1Properties == obj2Properties)
+      return true;
+  }
+  else 
+    return false;
+}
+
+var obj = {here: {is: "an"}, object: 2};
+console.log(deepEqual(obj, obj));
+// → true
+console.log(deepEqual(obj, {here: 1, object: 2}));
+// → false
+console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+// → true
+console.log(deepEqual(obj, null));
+// → false
