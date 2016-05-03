@@ -1,7 +1,10 @@
-/*Ch 5 Exercises
-function flattening 	= line 
-function Monther-Child
-*/
+Ch 5 Exercises
+function flattening 	= line 21
+function Monther-Child	= line 54
+function lifeExpectancy = line 126
+function Every			= line 159
+function Some			= line 169
+
 
 function frustratedFlattening(a)
 {
@@ -25,3 +28,202 @@ function flattening(a)
     }, []);//without ', []' only returns [4,5,6]
   return b;
 }
+
+--------------------------------
+
+function average(array) {
+  function plus(a, b) { return a + b; }
+  return array.reduce(plus) / array.length;
+}
+
+var byName = {};
+ancestry.forEach(function(person) {
+  byName[person.name] = person;
+});
+
+function AgeDifference( mother, child )
+{
+  if (child != undefined && mother != undefined){
+  	var ageDifference = mother.born - child.born;
+	return ageDifference; 
+  }
+  else 
+    return null;
+}
+
+function motherChildAgeDiff()
+{
+  var ageDifferenceArray = [];
+  
+ ancestry.forEach(function (person){
+   if (person.mother != null){
+     //second step determined if mother was included in set
+     var motherName = person.mother;
+     var mother = byName[motherName];
+     
+     //if mother doesn't exist in set - don't do anything
+     if (mother != undefined){
+       //started here - found mother child pairs
+    	//console.log("{ " + person.name + ", " + person.mother + "}"); 
+       ageDifferenceArray.push(AgeDifference(person, mother)); 
+     }
+   }
+ });
+  return average(ageDifferenceArray);
+}
+
+console.log(motherChildAgeDiff());
+
+----------------------------------------------
+
+function average(array) {
+  function plus(a, b) { return a + b; }
+  return array.reduce(plus) / array.length;
+}
+
+function lifeExpectancy()
+{
+  var sixteenthCentury = [];
+  var seventeenthCentury = [];
+  var eightteenthCentury = [];
+  var nineteenthCentury = [];
+  var twentithCentury = [];
+  var twentyFirstCentury = [];
+  
+ ancestry.forEach(function (person){
+   if (Math.ceil(person.died/100) == 16)
+     sixteenthCentury.push(person.died - person.born);
+   else if (Math.ceil(person.died/100) == 17)
+     seventeenthCentury.push(person.died - person.born);
+   else if (Math.ceil(person.died/100) == 18)
+     eightteenthCentury.push(person.died - person.born);
+   else if (Math.ceil(person.died/100) == 19)
+     nineteenthCentury.push(person.died - person.born);
+   else if (Math.ceil(person.died/100) == 20)
+     twentithCentury.push(person.died - person.born);
+   else if (Math.ceil(person.died/100) == 21)
+     twentyFirstCentury.push(person.died - person.born);
+ });
+   
+  console.log("16: " + average(sixteenthCentury).toFixed(1));
+  console.log("17: " + average(seventeenthCentury).toFixed(1));
+  console.log("18: " + average(eightteenthCentury).toFixed(1));
+  console.log("19: " + average(nineteenthCentury).toFixed(1));
+  console.log("20: " + average(twentithCentury).toFixed(1));
+  console.log("21: " + average(twentyFirstCentury));
+}
+
+lifeExpectancy();
+
+-------------------
+Life Expectancy - tried GroupBy ... don't quite understand what he's asking for but didn't assume known centuries for this version
+
+function average(array) {
+  function plus(a, b) { return a + b; }
+  return array.reduce(plus) / array.length;
+}
+
+function lifeExpectancy()
+{
+  var min = Math.min(...ancestry.map(function (person){
+  return Math.ceil(person.died/100);}));
+
+  var max = Math.max(...ancestry.map(function (person){
+    return Math.ceil(person.died/100);
+  }));
+  
+  for (var i = min,  j = 0; i <= max; i++, j++)
+  {
+    var avg = average(ancestry.filter(function (p){
+  			return (Math.ceil(p.died/100) == i);}).map(age));
+    console.log(i + ": " + avg.toFixed(1));
+  }
+}
+
+lifeExpectancy();
+
+-------------------------------------------------------
+
+//process all the elements even if false is returned
+function every1(array, f){
+ if (!array.forEach(function (item){
+   if (f(item) !== true){
+     return false;
+   }
+ }))
+   return false;
+ else
+   return true;
+}
+
+function every(array, f){
+ for (var i = 0; i < array.length; i++){
+  if (!f(array[i])){
+    i = array.length;
+    return false;
+  }
+ }
+  return true;
+}
+
+function some(array, f){
+  for (var i = 0; i < array.length; i++){
+    if (f(array[i]))
+      return true;
+  }
+  return false;
+}
+--------------------------------
+Mother-Child_age_difference
+ancestry  = 'require(./path/to/ancestry.js)';
+console.log(ancestry);
+
+/*function average(array) {
+  function plus(a, b) { return a + b; }
+  return array.reduce(plus) / array.length;
+}
+
+var byName = {};
+ancestry.forEach(function(person) {
+  byName[person.name] = person;
+});
+
+function AgeDifference( mother, child )
+{
+  var ageDifference = child.born - mother.born;
+
+ return ageDifference; 
+}
+
+function AverageAge(set)
+{
+  var ageDiffArray = [];
+  
+  forEach(person in set)
+  { 
+    var mother = byName(person.mother);
+    ageDiffArray.push(AgeDifference(mother, person));
+  }
+  
+  return average(ageDiffArray(ancestry));
+}*/
+
+
+-----------------------
+function every(array, condition)
+{
+  var everyMeetsCondition = true;
+  everyMeetsCondition = array.forEach(function(e){
+    if (!condition(e))
+      return false;
+  });
+}
+
+console.log(every([NaN, NaN, NaN], isNaN));
+// → true
+console.log(every([NaN, NaN, 4], isNaN));
+// → false
+//console.log(some([NaN, 3, 4], isNaN));
+// → true
+//console.log(some([2, 3, 4], isNaN));
+// → false
