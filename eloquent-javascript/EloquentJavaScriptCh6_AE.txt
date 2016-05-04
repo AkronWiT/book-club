@@ -1,0 +1,109 @@
+Ch 6 Exercises
+function Vector		 		= line 6
+function AnotherCell		= line 36
+function SequenceInterface = line 57
+
+function Vector(x, y) {
+  if (typeof x == "number" && typeof y == "number")
+  {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+Vector.prototype.plus = function(v2) {
+  return new Vector((this.x + v2.x), (this.y + v2.y));
+};
+Vector.prototype.minus = function(v2) {
+  return new Vector((this.x - v2.x), (this.y - v2.y));
+};
+
+Object.defineProperty(Vector.prototype, "length", {
+  get: function() { var squaredLength = Math.pow(this.x, 2) + Math.pow(this.y, 2);
+                    return Math.sqrt(squaredLength);
+                  }
+});
+
+console.log(new Vector(1, 2).plus(new Vector(2, 3)));
+// → Vector{x: 3, y: 5}
+console.log(new Vector(1, 2).minus(new Vector(2, 3)));
+// → Vector{x: -1, y: -1}
+console.log(new Vector(3, 4).length);
+// → 5
+
+-----------------------------------------------------------
+
+function StretchCell(inner, width, height)
+{
+  this.inner = inner;
+  this.minimumWidth = width;
+  this.minimumHeight = height, this.inner.minHeight;
+}
+
+StretchCell.prototype.minWidth = function() {
+  return Math.max(this.inner.minWidth(), this.minimumWidth);
+};
+StretchCell.prototype.minHeight = function() {
+  return Math.max(this.inner.minHeight(), this.minimumHeight);
+};
+StretchCell.prototype.draw = function(width, height) {
+  return this.inner.draw(width, height - 1)
+    .concat([repeat(" ", width)]);
+};
+
+
+-----------------------------------------------------------
+
+function ArraySeq(array)
+{
+ this.array = array;
+  this.end = array.length - 1;
+  if (array.length > 1)
+    this.position = 0;
+  else 
+    this.position = -1;
+}
+ArraySeq.prototype.current = function(){
+  return this.array[this.position];
+}
+ArraySeq.prototype.hasNext = function(){
+  return (this.end - this.position > 0);
+}
+ArraySeq.prototype.next = function(){
+  if (this.hasNext()){
+    return this.array[++this.position];
+  }
+  else 
+    return null;
+}
+
+function logFive(array)
+{
+  console.log(array.current());
+  while(array.hasNext()){
+    console.log(array.next());
+  }
+}
+
+function RangeSeq(from, to)
+{
+ this.begin = from;
+  this.end = to;
+  this.curNum = from;
+}
+
+RangeSeq.prototype.current = function (){
+  return this.curNum;
+}
+
+RangeSeq.prototype.hasNext = function(){
+ return (this.curNum < this.end)
+}
+
+RangeSeq.prototype.next = function(){
+  if (this.hasNext()){
+    return ++this.curNum;
+  }
+  else 
+    return null;
+}

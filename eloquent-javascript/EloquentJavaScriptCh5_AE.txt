@@ -1,6 +1,6 @@
 Ch 5 Exercises
 function flattening 	= line 21
-function Monther-Child	= line 54
+function Mother-Child	= line 54
 function lifeExpectancy = line 126
 function Every			= line 159
 function Some			= line 169
@@ -173,57 +173,3 @@ function some(array, f){
   }
   return false;
 }
---------------------------------
-Mother-Child_age_difference
-ancestry  = 'require(./path/to/ancestry.js)';
-console.log(ancestry);
-
-/*function average(array) {
-  function plus(a, b) { return a + b; }
-  return array.reduce(plus) / array.length;
-}
-
-var byName = {};
-ancestry.forEach(function(person) {
-  byName[person.name] = person;
-});
-
-function AgeDifference( mother, child )
-{
-  var ageDifference = child.born - mother.born;
-
- return ageDifference; 
-}
-
-function AverageAge(set)
-{
-  var ageDiffArray = [];
-  
-  forEach(person in set)
-  { 
-    var mother = byName(person.mother);
-    ageDiffArray.push(AgeDifference(mother, person));
-  }
-  
-  return average(ageDiffArray(ancestry));
-}*/
-
-
------------------------
-function every(array, condition)
-{
-  var everyMeetsCondition = true;
-  everyMeetsCondition = array.forEach(function(e){
-    if (!condition(e))
-      return false;
-  });
-}
-
-console.log(every([NaN, NaN, NaN], isNaN));
-// → true
-console.log(every([NaN, NaN, 4], isNaN));
-// → false
-//console.log(some([NaN, 3, 4], isNaN));
-// → true
-//console.log(some([2, 3, 4], isNaN));
-// → false
