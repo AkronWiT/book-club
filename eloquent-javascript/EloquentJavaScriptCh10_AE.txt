@@ -1,0 +1,32 @@
+Month Names
+(function(exports) {
+  var names = ["January", "February", "March", "April", 
+               "May", "June", "July", "August", 
+               "September", "October", "November", "December"];
+  
+  exports.name = function(number) {
+    return names[number];
+  };
+  exports.number = function(name) {
+    return names.indexOf(name);
+  };
+})(this.month = {});
+
+console.log(month.name(2));
+// → March
+console.log(month.number("November"));
+// → 10
+
+A Return to Electronic Life
+
+world
+	Vector->Grid->World->lifelikeworld->elementfromchar->charfromelement
+Criter
+	[objects](Wall)->(Bouncingcritter->Wallfollower)->(Plant->Planteater->Smartplanteater->Tiger)
+Movement
+	[arrays]Directions->DirectionNames
+	[functions]dirplus->View->randomelement
+
+	
+Circular Dependency
+- require would need a way to track two exports objects
